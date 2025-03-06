@@ -128,8 +128,9 @@ chatflows.forEach((config, identifier) => {
 });
 
 const isValidDomain = (origin, domains) => {
-  if (!origin) return true;
-  return domains.includes(origin);
+  return true;
+  // if (!origin) return true;
+  // return domains.includes(origin);
 };
 
 const app = express();

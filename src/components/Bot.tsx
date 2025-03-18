@@ -300,7 +300,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   // drag & drop
   const [isDragActive, setIsDragActive] = createSignal(false);
   const [uploadedFiles, setUploadedFiles] = createSignal<{ file: File; type: string }[]>([]);
-
+  const showTitle = props.showTitle || true;
   createMemo(() => {
     const customerId = (props.chatflowConfig?.vars as any)?.customerId;
     setChatId(customerId ? `${customerId.toString()}+${uuidv4()}` : uuidv4());
@@ -641,7 +641,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   };
 
   const abortMessage = () => {
-    setIsMessageStopping(false);
+    // setIsMessageStopping(false);
     setMessages((prevMessages) => {
       const allMessages = [...cloneDeep(prevMessages)];
       if (allMessages[allMessages.length - 1].type === 'userMessage') return allMessages;
@@ -1401,7 +1401,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
           </div>
         )}
 
-        {props.showTitle ? (
+        {showTitle ? (
           <div
             class="flex flex-row items-center w-full h-[50px] absolute top-0 left-0 z-10"
             style={{
@@ -1417,9 +1417,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                 <Avatar initialAvatarSrc={props.titleAvatarSrc} />
               </>
             </Show>
-            <Show when={props.title}>
-              <span class="px-3 whitespace-pre-wrap font-semibold max-w-full">{props.title}</span>
-            </Show>
+            <span class="px-3 whitespace-pre-wrap font-semibold max-w-full">Tyler Bot</span>
             <div style={{ flex: 1 }} />
             <DeleteButton
               sendButtonColor={props.bubbleTextColor}
@@ -1584,6 +1582,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                       <CancelButton buttonColor={props.textInput?.sendButtonColor} type="button" class="m-0" on:click={onRecordingCancelled}>
                         <span style={{ 'font-family': 'Poppins, sans-serif' }}>Send</span>
                       </CancelButton>
+
                       <SendButton
                         sendButtonColor={props.textInput?.sendButtonColor}
                         type="button"
